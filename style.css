@@ -1,227 +1,207 @@
 :root {
     --bg-gradient: linear-gradient(-45deg, #ffcbf2, #e2cbf7, #cbf2f7, #f7e2cb);
-    --text-dark: #4a4a5a; --text-light: #7a7a8a;
+    --text-dark: #4a4a5a; 
+    --text-light: #7a7a8a;
     --glass-bg: rgba(255, 255, 255, 0.45);
     --glass-border: rgba(255, 255, 255, 0.7);
     --modal-bg: rgba(255, 255, 255, 0.65);
     --input-bg: rgba(255, 255, 255, 0.5);
     --input-border: rgba(255, 255, 255, 0.8);
-    --btn-bg: #fff; --btn-hover: #e2cbf7; --btn-text: #4a4a5a;
+    --btn-bg: #fff; 
+    --btn-hover: #e2cbf7; 
+    --btn-text: #4a4a5a;
     --accent-color: #e2cbf7;
-    --color-1: #ffcbf2; --color-2: #e2cbf7; --color-3: #cbf2f7; --color-4: #f7e2cb;
-    --sun-opacity: 1; --moon-opacity: 0; --sun-pos: 0px; --moon-pos: 100px;
+    --color-3: #cbf2f7;
+    --sun-opacity: 1; 
+    --moon-opacity: 0; 
+    --sun-pos: 0px; 
+    --moon-pos: 150px;
 }
 
 body.dark-mode {
     --bg-gradient: linear-gradient(-45deg, #1a1a2e, #16213e, #0f3460, #2a0a2e);
-    --text-dark: #e4e4e4; --text-light: #a7a7a7;
+    --text-dark: #e4e4e4; 
+    --text-light: #a7a7a7;
     --glass-bg: rgba(20, 20, 35, 0.5);
     --glass-border: rgba(255, 255, 255, 0.1);
     --modal-bg: rgba(30, 30, 45, 0.75);
     --input-bg: rgba(40, 40, 55, 0.5);
     --input-border: rgba(255, 255, 255, 0.15);
-    --btn-bg: #2a2a3a; --btn-hover: #3d3d5c; --btn-text: #fff;
+    --btn-bg: #2a2a3a; 
+    --btn-hover: #3d3d5c; 
+    --btn-text: #fff;
     --accent-color: #4cc9f0;
-    --color-1: #3a0ca3; --color-2: #7209b7; --color-3: #4cc9f0; --color-4: #4361ee;
-    --sun-opacity: 0; --moon-opacity: 1; --sun-pos: 100px; --moon-pos: 0px;
+    --color-3: #4cc9f0;
+    --sun-opacity: 0; 
+    --moon-opacity: 1; 
+    --sun-pos: 150px; 
+    --moon-pos: 0px;
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; transition: background-color 0.4s ease, border-color 0.4s ease, color 0.3s ease; }
+* { 
+    margin: 0; padding: 0; box-sizing: border-box; 
+    -webkit-tap-highlight-color: transparent; 
+    transition: background-color 0.4s ease, border-color 0.4s ease, color 0.3s ease; 
+}
 
 body {
-    font-family: 'Tajawal', sans-serif; color: var(--text-dark);
+    font-family: 'Tajawal', sans-serif; 
+    color: var(--text-dark);
     height: 100vh; width: 100vw; overflow: hidden;
     background: var(--bg-gradient); background-size: 400% 400%;
     animation: auraGlow 20s ease infinite; position: relative;
 }
-@keyframes auraGlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
 
-/* الشمس والقمر */
-.celestial-bodies { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
-.sun { position: absolute; top: 10%; right: 10%; width: 180px; height: 180px; background: linear-gradient(to bottom right, #ffd700, #ffb347); border-radius: 50%; box-shadow: 0 0 100px rgba(255, 215, 0, 0.6); opacity: var(--sun-opacity); transform: translateY(var(--sun-pos)); transition: all 1.2s cubic-bezier(0.25, 0.8, 0.25, 1); }
-.moon { position: absolute; top: 15%; left: 15%; width: 150px; height: 150px; background: linear-gradient(to bottom right, #f4f4f4, #dcdcdc); border-radius: 50%; box-shadow: 0 0 60px rgba(255, 255, 255, 0.3); opacity: var(--moon-opacity); transform: translateY(var(--moon-pos)); transition: all 1.2s cubic-bezier(0.25, 0.8, 0.25, 1); }
-
-.theme-btn { position: fixed; top: 20px; right: 20px; z-index: 200; width: 45px; height: 45px; border-radius: 50%; background: var(--glass-bg); border: 1px solid var(--glass-border); backdrop-filter: blur(10px); font-size: 22px; cursor: pointer; display: flex; justify-content: center; align-items: center; transition: 0.4s; }
-/* --- زر متجر ميثود العائم --- */
-.method-store-btn {
-    position: fixed; top: 20px; left: 20px; z-index: 200; width: 45px; height: 45px; border-radius: 50%; background: var(--glass-bg); border: 1px solid var(--glass-border); backdrop-filter: blur(10px); font-size: 22px; cursor: pointer; display: flex; justify-content: center; align-items: center; transition: 0.4s; }
-
-
-/* تأثير لما تمرين عليها أو تضغطينها */
-.method-store-btn:hover {
-    transform: scale(1.1);
-    background: var(--color-2); /* تاخذ من ألوان الهالة  */
+@keyframes auraGlow { 
+    0% { background-position: 0% 50%; } 
+    50% { background-position: 100% 50%; } 
+    100% { background-position: 0% 50%; } 
 }
-/* نظام الصفحات (Views) */
-.view-section { position: absolute; inset: 0; display: none; justify-content: center; align-items: center; opacity: 0; transition: opacity 0.4s ease; padding-bottom: 80px; z-index: 10; }
-.view-section.active { display: flex; opacity: 1; }
 
-/* كرت الصفحات */
+/* ================== تأثيرات السماء ================== */
+.celestial-bodies { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+
+.sun { 
+    position: absolute; top: 10%; right: 10%; 
+    width: 180px; height: 180px; 
+    background: linear-gradient(to bottom right, #ffd700, #ffb347); 
+    border-radius: 50%; 
+    box-shadow: 0 0 100px rgba(255, 215, 0, 0.6); 
+    opacity: var(--sun-opacity); 
+    transform: translateY(var(--sun-pos)); 
+    transition: all 1.2s cubic-bezier(0.25, 0.8, 0.25, 1); 
+}
+
+.moon { 
+    position: absolute; top: 15%; left: 15%; 
+    width: 150px; height: 150px; 
+    background: linear-gradient(to bottom right, #ffffff, #e0e0e0); 
+    border-radius: 50%; 
+    box-shadow: 0 0 60px rgba(255, 255, 0, 0.1); 
+    opacity: var(--moon-opacity); 
+    transform: translateY(var(--moon-pos)); 
+    transition: all 1.2s cubic-bezier(0.25, 0.8, 0.25, 1); 
+}
+
+/* ================== الحاويات الزجاجية ================== */
 .glass-page-card {
-    background: var(--modal-bg); width: 90%; max-width: 450px; border-radius: 30px;
+    background: var(--modal-bg);
+    width: 90%; max-width: 450px; border-radius: 30px;
     padding: 35px 25px; border: 1px solid var(--glass-border);
     box-shadow: 0 20px 50px rgba(0,0,0,0.1); text-align: center;
     backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    margin: 0 auto;
 }
-.page-title { font-size: 24px; color: var(--text-dark); margin-bottom: 10px; }
-.page-desc { font-size: 14px; color: var(--text-light); margin-bottom: 25px; }
 
-/* شريط التنقل السفلي (Dock) */
-.bottom-dock {
-    position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%);
-    display: flex; gap: 10px; padding: 10px 15px; border-radius: 30px;
-    background: var(--glass-bg); border: 1px solid var(--glass-border);
-    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-    z-index: 200; box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-}
-.dock-item {
-    width: 45px; height: 45px; border-radius: 50%; display: flex; justify-content: center; align-items: center;
-    font-size: 20px; cursor: pointer; transition: 0.3s; opacity: 0.6;
-}
-.dock-item:hover { opacity: 1; background: var(--input-bg); }
-.dock-item.active { opacity: 1; background: var(--btn-hover); transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-
-/* حقوق المتجر */
-.legal-footer { position: fixed; bottom: 110px; width: 100%; text-align: center; font-size: 11px; opacity: 0.7; color: var(--text-dark); z-index: 5; font-weight: bold; letter-spacing: 1px; }
-/* --- تصميم واجهة الهامش الجانبي --- */
 .margin-layout {
-    display: flex; width: 90%; max-width: 500px; height: 75vh; 
-    margin: 0 auto; background: var(--modal-bg); border-radius: 20px;
+    display: flex; width: 90%; max-width: 380px; aspect-ratio: 1 / 1; 
+    margin: 0 auto; background: var(--modal-bg); border-radius: 30px;
     border: 1px solid var(--glass-border); overflow: hidden;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.1); backdrop-filter: blur(20px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
 }
-.glass-margin {
-    width: 70px; background: rgba(255,255,255,0.1); border-left: 1px solid var(--glass-border);
-    display: flex; flex-direction: column; align-items: center; padding: 20px 0; gap: 25px;
+
+.glass-margin { 
+    width: 70px; background: rgba(255,255,255,0.1); 
+    border-left: 1px solid var(--glass-border); 
+    display: flex; flex-direction: column; align-items: center; padding: 20px 0; gap: 25px; 
 }
-.margin-icon {
-    font-size: 24px; cursor: pointer; transition: 0.3s; opacity: 0.6;
-    background: var(--input-bg); width: 45px; height: 45px; border-radius: 15px;
-    display: flex; justify-content: center; align-items: center;
+
+.margin-icon { 
+    font-size: 24px; cursor: pointer; transition: 0.3s; opacity: 0.6; 
+    background: var(--input-bg); width: 45px; height: 45px; border-radius: 15px; 
+    display: flex; justify-content: center; align-items: center; 
 }
 .margin-icon:hover, .margin-icon.active { opacity: 1; transform: scale(1.1); background: var(--btn-hover); }
+.margin-content { flex: 1; padding: 25px; overflow-y: auto; text-align: center; position: relative; }
 
-.margin-content { flex: 1; padding: 25px; overflow-y: auto; position: relative; }
-.empty-state { text-align: center; color: var(--text-light); margin-top: 50px; }
+/* ================== الأزرار والمدخلات ================== */
+.clean-input { width: 100%; background: var(--input-bg); border: 1.5px solid var(--input-border); border-radius: 15px; color: var(--text-dark); padding: 14px; margin-bottom: 12px; font-family: inherit; outline: none; font-size: 14px; }
+.clean-input:focus { border-color: var(--accent-color); }
+.clean-btn { width: 100%; padding: 14px; border-radius: 15px; border: none; background: var(--btn-bg); color: var(--btn-text); font-weight: 700; cursor: pointer; font-family: inherit; transition: 0.3s; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 10px;}
+.clean-btn:hover { background: var(--btn-hover); }
 
-/* --- تأثير المحرقة الرقمية 🔥 --- */
-.paper-slip { background: #fdf6e3; padding: 15px; border-radius: 5px; color: #333; margin-bottom: 15px; font-family: 'Courier New', Courier, monospace; box-shadow: 2px 2px 10px rgba(0,0,0,0.1); transition: all 1s ease-in-out; }
+.theme-btn, .method-store-btn { position: fixed; top: 20px; z-index: 200; width: 45px; height: 45px; border-radius: 50%; background: var(--glass-bg); border: 1px solid var(--glass-border); backdrop-filter: blur(10px); font-size: 22px; cursor: pointer; display: flex; justify-content: center; align-items: center; transition: 0.4s; text-decoration: none;}
+.theme-btn { right: 20px; }
+.method-store-btn { left: 20px; }
+
+/* ================== حقوق المتجر ================== */
+.legal-footer {
+    position: fixed;
+    bottom: 90px;
+    width: 100%;
+    text-align: center;
+    font-size: 11px;
+    color: var(--text-dark);
+    opacity: 0.8;
+    z-index: 5;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    pointer-events: none;
+}
+
+/* ================== التنقل والشريط السفلي ================== */
+.view-section { position: absolute; inset: 0; display: none; flex-direction: column; justify-content: center; align-items: center; opacity: 0; padding-bottom: 80px; z-index: 10; animation: fadeIn 0.4s ease forwards; }
+.view-section.active { display: flex; opacity: 1; }
+
+@keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+
+.bottom-dock { position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); display: flex; gap: 10px; padding: 10px 15px; border-radius: 30px; background: var(--glass-bg); border: 1px solid var(--glass-border); backdrop-filter: blur(20px); z-index: 200; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+.dock-item { width: 45px; height: 45px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 20px; cursor: pointer; transition: 0.3s; opacity: 0.6; }
+.dock-item.active { opacity: 1; background: var(--btn-hover); transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+
+/* ================== المحرقة الرقمية والأنيميشن ================== */
+.paper-slip { 
+    background: #fdf6e3; padding: 15px; border-radius: 5px; 
+    color: #333; margin-bottom: 15px; font-family: 'Courier New', Courier, monospace; 
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.1); transition: all 1s ease-in-out; 
+}
 .burning { animation: burnEffect 1.5s forwards; }
+
 @keyframes burnEffect {
     0% { transform: translateY(0) scale(1); opacity: 1; filter: sepia(0); }
     50% { filter: sepia(1) hue-rotate(-50deg) saturate(5); background: #ff4500; color: transparent; }
     100% { transform: translateY(-50px) scale(0.5); opacity: 0; filter: grayscale(1) brightness(0.2); }
 }
 
-/* --- تصميم المحرر الزجاجي ✍️ --- */
-.editor-toolbar { display: flex; gap: 8px; padding: 12px; background: rgba(255,255,255,0.2); border-radius: 20px 20px 0 0; border-bottom: 1px solid var(--glass-border); flex-wrap: wrap; justify-content: center; }
-.editor-toolbar button, .editor-toolbar select, .editor-toolbar input { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 10px; padding: 5px 12px; cursor: pointer; color: var(--text-dark); font-weight: bold; transition: 0.3s; height: 35px; }
-.editor-toolbar button:hover { background: var(--btn-hover); }
-.editor-toolbar input[type="color"] { padding: 2px; width: 40px; }
-
-.rich-editor-area { flex: 1; background: rgba(0,0,0,0.02); padding: 20px; border-radius: 0 0 20px 20px; overflow-y: auto; text-align: right; outline: none; transition: 0.3s; font-size: 16px; line-height: 1.8; }
-.rich-editor-area:focus { background: rgba(255,255,255,0.4); }
-.rich-editor-area:empty:before { content: attr(placeholder); color: var(--text-light); pointer-events: none; display: block; }
-
-/* --- تأثير اللمس السحري ✨ --- */
-.sparkle-effect { position: fixed; width: 30px; height: 30px; border-radius: 50%; background: radial-gradient(circle, rgba(255,255,255,0.9) 0%, transparent 70%); box-shadow: 0 0 20px var(--accent-color); pointer-events: none; transform: translate(-50%, -50%) scale(0); animation: popSparkle 0.6s ease-out forwards; z-index: 9999; }
-@keyframes popSparkle { 50% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; } 100% { transform: translate(-50%, -50%) scale(2); opacity: 0; } }
-
-/* --- فقاعة التنفس في الهامش 🧘🏻‍♀️ --- */
-.breathe-bubble { width: 120px; height: 120px; border-radius: 50%; background: radial-gradient(circle, var(--color-3) 0%, transparent 70%); margin: 50px auto; animation: breatheAnim 8s infinite ease-in-out; box-shadow: 0 0 40px var(--color-3); }
+/* ================== فقاعة التنفس ================== */
+.breathe-bubble { 
+    width: 120px; height: 120px; border-radius: 50%; 
+    background: radial-gradient(circle, var(--color-3) 0%, transparent 70%); 
+    margin: 50px auto; animation: breatheAnim 8s infinite ease-in-out; box-shadow: 0 0 40px var(--color-3); 
+}
 @keyframes breatheAnim { 0%, 100% { transform: scale(1); opacity: 0.4; } 50% { transform: scale(1.8); opacity: 1; } }
 
-/* --- تصميم الصوتيات --- */
-.mixer-track { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; background: var(--input-bg); padding: 10px 15px; border-radius: 15px; border: 1px solid var(--input-border); }
-.aes-slider { -webkit-appearance: none; appearance: none; width: 60%; height: 6px; background: rgba(0,0,0,0.1); border-radius: 5px; outline: none; }
-.aes-slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 16px; height: 16px; border-radius: 50%; background: var(--accent-color); cursor: pointer; }
-/* ================== تصميم لوحة الإلهام الجديد ================== */
-.vision-container {
-    margin: 20px auto;
-    width: 90%;
-    max-width: 400px;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 15px;
-    padding: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    text-align: center;
-}
-
-.vision-controls {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    margin-bottom: 20px;
-}
-
-.action-btn {
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    padding: 10px 15px;
-    border-radius: 8px;
-    color: var(--text-dark, #fff);
-    font-family: inherit;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.download-btn {
-    background: rgba(100, 200, 100, 0.2); /* لون أخضر خفيف للتمييز */
-}
-
-/* تصميم شبكة الصور */
-.vision-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* عمودين متساويين */
-    gap: 12px;
-    min-height: 150px;
-}
-
-.vision-item {
-    position: relative;
-    aspect-ratio: 1 / 1; /* يجبر الصورة تكون مربعة 100% */
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-}
-
-.vision-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* يملأ المربع بدون تشويه للصورة */
-}
-
-.delete-btn {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    background: rgba(255, 50, 50, 0.8);
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 28px;
-    height: 28px;
-    font-size: 14px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: 0.2s;
-}
-
-/* أزرار ومدخلات عامة */
-.clean-input { width: 100%; background: var(--input-bg); border: 1.5px solid var(--input-border); border-radius: 15px; color: var(--text-dark); padding: 14px; margin-bottom: 12px; font-family: inherit; outline: none; font-size: 14px; }
-.clean-input:focus { border-color: var(--accent-color); }
-.clean-btn { width: 100%; padding: 14px; border-radius: 15px; border: none; background: var(--btn-bg); color: var(--btn-text); font-weight: 700; cursor: pointer; font-family: inherit; transition: 0.3s; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 10px;}
-.clean-btn:hover { background: var(--btn-hover); }
-
-/* --- تصميم كروت الأرشيف --- */
-.log-card { background: var(--input-bg); padding: 15px; border-radius: 15px; border: 1px solid var(--input-border); text-align: right; margin-bottom: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-.log-date { font-size: 11px; color: var(--text-dark); opacity: 0.7; font-weight: bold; display: block; border-bottom: 1px dashed var(--glass-border); padding-bottom: 5px; margin-bottom: 10px; }
-
-/* --- قائمة المهام (Checklist) في الهامش --- */
+/* ================== قائمة المهام في الهامش ================== */
 .check-item { display: flex; align-items: center; justify-content: space-between; padding: 12px; background: var(--input-bg); border-radius: 12px; margin-bottom: 10px; border: 1px solid var(--input-border); transition: 0.3s; }
 .check-item.done { opacity: 0.5; }
 .check-item.done .task-text { text-decoration: line-through; }
 .task-text { flex: 1; text-align: right; margin: 0 10px; font-size: 14px; color: var(--text-dark); cursor: pointer; }
 .del-task-btn { background: none; border: none; color: #ff6b6b; cursor: pointer; font-size: 14px; font-weight: bold; }
+
+/* ================== المحرر والأرشيف ================== */
+.editor-toolbar { display: flex; gap: 8px; padding: 12px; background: rgba(255,255,255,0.2); border-radius: 20px 20px 0 0; border-bottom: 1px solid var(--glass-border); flex-wrap: wrap; justify-content: center; }
+.editor-toolbar button, .editor-toolbar input { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 10px; padding: 5px 12px; cursor: pointer; color: var(--text-dark); font-weight: bold; transition: 0.3s; height: 35px; }
+.editor-toolbar button:hover { background: var(--btn-hover); }
+.editor-toolbar input[type="color"] { padding: 2px; width: 40px; }
+.rich-editor-area { flex: 1; background: rgba(0,0,0,0.02); padding: 20px; border-radius: 0 0 20px 20px; text-align: right; outline: none; transition: 0.3s; font-size: 16px; line-height: 1.8; }
+.log-card { background: var(--input-bg); padding: 15px; border-radius: 15px; border: 1px solid var(--input-border); text-align: right; margin-bottom: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+.log-date { font-size: 11px; color: var(--text-dark); opacity: 0.7; font-weight: bold; display: block; border-bottom: 1px dashed var(--glass-border); padding-bottom: 5px; margin-bottom: 10px; }
+
+/* ================== استوديو الترددات ================== */
+.mixer-track { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; background: var(--input-bg); padding: 10px 15px; border-radius: 15px; border: 1px solid var(--input-border); }
+.aes-slider { -webkit-appearance: none; appearance: none; width: 60%; height: 6px; background: rgba(0,0,0,0.1); border-radius: 5px; outline: none; }
+.aes-slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 16px; height: 16px; border-radius: 50%; background: var(--accent-color); cursor: pointer; }
+
+/* ================== لوحة الإلهام ================== */
+.vision-controls { display: flex; gap: 10px; justify-content: center; margin-bottom: 20px; }
+.action-btn { background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); padding: 10px 15px; border-radius: 8px; color: var(--text-dark); cursor: pointer; transition: 0.3s; font-weight: bold; }
+.download-btn { background: rgba(100, 200, 100, 0.2); border-color: rgba(100, 200, 100, 0.4); }
+.vision-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; min-height: 150px; }
+.vision-item { position: relative; aspect-ratio: 1 / 1; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.2); }
+.vision-item img { width: 100%; height: 100%; object-fit: cover; }
+.delete-btn { position: absolute; top: 5px; right: 5px; background: rgba(255, 50, 50, 0.8); color: white; border: none; border-radius: 50%; width: 28px; height: 28px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px;}
+
+/* ================== اللمس السحري ================== */
+.sparkle-effect { position: fixed; width: 30px; height: 30px; border-radius: 50%; background: radial-gradient(circle, rgba(255,255,255,0.9) 0%, transparent 70%); box-shadow: 0 0 20px var(--accent-color); pointer-events: none; transform: translate(-50%, -50%) scale(0); animation: popSparkle 0.6s ease-out forwards; z-index: 9999; }
+@keyframes popSparkle { 50% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; } 100% { transform: translate(-50%, -50%) scale(2); opacity: 0; } }

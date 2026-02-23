@@ -3,124 +3,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>هامش عقلك | ميثود</title>
-    
-    <meta name="theme-color" content="#1a1a2e">
-    <link rel="manifest" href="manifest.json">
-    <link rel="apple-touch-icon" href="icon-512.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
-    <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <title>ميثود - هامش عقلك</title>
+    <link rel="stylesheet" href="style.css?v=6">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
+
     <div class="celestial-bodies">
         <div class="sun"></div>
         <div class="moon"></div>
     </div>
 
-    <button id="theme-toggle" class="theme-btn">🌙</button>
-    <a href="https://method-store.com" target="_blank" class="method-store-btn" title="زيارة متجر ميثود">
-        🛍️
-    </a>
+    <button id="theme-toggle" class="theme-btn" title="تغيير النمط">🌙</button>
+    <a href="https://method-store.com" target="_blank" class="method-store-btn" title="متجر ميثود">🛍️</a>
 
-    <main id="view-world" class="view-section active">
+    <main id="view-main" class="view-section active">
         <div class="margin-layout">
-            <aside class="glass-margin">
-                <div class="margin-icon" onclick="openMarginFeature('incinerator', this)" title="المحرقة الرقمية">🔥</div>
-                <div class="margin-icon" onclick="openMarginFeature('checklist', this)" title="قائمة المهام">✅</div>
-                <div class="margin-icon" onclick="openMarginFeature('breathe', this)" title="تنفس">🧘🏻‍♀️</div>
-            </aside>
-            
-            <section class="margin-content" id="margin-display">
-                <div class="empty-state">
-                    <h3>هامش عقلك ✨</h3>
-                    <p>اختار فعالية من الهامش الجانبي لتبدأ...</p>
-                </div>
-            </section>
+            <div class="glass-margin">
+                <div class="margin-icon active" onclick="openMarginFeature('incinerator', this)">🔥</div>
+                <div class="margin-icon" onclick="openMarginFeature('checklist', this)">✅</div>
+                <div class="margin-icon" onclick="openMarginFeature('breathe', this)">🧘🏻‍♂️</div>
+            </div>
+            <div id="margin-display" class="margin-content">
+                <h3 style="margin-bottom:10px; color:var(--text-dark);">المحرقة الرقمية 🔥</h3>
+                <p style="font-size:13px; color:var(--text-light); margin-bottom:20px;">اكتب ما يزعجك، ثم احرقه للأبد.</p>
+                <textarea id="burn-text" class="clean-input" rows="4" placeholder="أفرغ أفكارك هنا..."></textarea>
+                <button class="clean-btn" style="background:#ff6b6b; color:#fff;" onclick="burnIt()">أشعل النار 🔥</button>
+                <div id="burn-area" style="margin-top:20px;"></div>
+            </div>
         </div>
     </main>
 
     <main id="view-editor" class="view-section">
-        <div class="glass-page-card" style="width: 95%; max-width: 600px; height: 68vh; display: flex; flex-direction: column;">
-            <h2 class="page-title">مساحة حرة ✍️</h2>
+        <div class="glass-page-card" style="height: 75vh; display: flex; flex-direction: column;">
+            <h2 class="page-title" style="margin-bottom: 5px;">المحرر الحر ✍️</h2>
+            <p class="page-desc" style="margin-bottom: 15px;">دوّن أفكارك واحتفظ بها في الأرشيف</p>
             
             <div id="editor-workspace" style="display: flex; flex-direction: column; flex: 1; overflow: hidden;">
                 <div class="editor-toolbar">
-                    <button onclick="formatText('bold')" title="عريض"><b>B</b></button>
-                    <button onclick="formatText('italic')" title="مائل"><i>I</i></button>
-                    <button onclick="formatText('underline')" title="تحته خط"><u>U</u></button>
-                    <input type="color" id="textColor" onchange="formatText('foreColor', this.value)" title="لون النص">
-                    <select onchange="formatText('fontSize', this.value)" title="حجم الخط">
-                        <option value="3">عادي</option>
-                        <option value="5">كبير</option>
-                        <option value="7">ضخم</option>
-                    </select>
+                    <button onclick="formatText('bold')">B</button>
+                    <button onclick="formatText('italic')">I</button>
+                    <input type="color" onchange="formatText('foreColor', this.value)">
+                    <button onclick="saveEditor()">حفظ ✨</button>
+                    <button onclick="toggleSavedNotes()">الأرشيف 📁</button>
                 </div>
-                
-                <div id="rich-editor" contenteditable="true" class="rich-editor-area" placeholder="اكتب كل اللي بخاطرك هنا... وتفنن بالألوان!"></div>
-                
-                <div style="display: flex; gap: 10px; margin-top: 15px;">
-                    <button class="clean-btn" onclick="saveEditor()" style="margin: 0;">💾 حفظ</button>
-                    <button class="clean-btn" onclick="toggleSavedNotes()" style="margin: 0; background: var(--color-3); color: var(--text-dark);">📂 أرشيفي</button>
-                </div>
+                <div id="rich-editor" class="rich-editor-area" contenteditable="true" placeholder="اكتب هامشك هنا..." style="flex: 1; overflow-y: auto;"></div>
             </div>
 
             <div id="saved-notes-workspace" style="display: none; flex-direction: column; flex: 1; overflow: hidden;">
-                <div id="notes-list" style="flex: 1; overflow-y: auto; margin-bottom: 15px; text-align: right; padding: 10px;"></div>
-                <button class="clean-btn" onclick="toggleSavedNotes()" style="background: #ff6b6b; color: white;">⬅️ رجوع للكتابة</button>
+                <h3 style="margin-bottom:15px; color:var(--text-dark);">الأرشيف المحفوظ</h3>
+                <div id="notes-list" style="overflow-y: auto; flex: 1;"></div>
+                <button class="clean-btn" onclick="toggleSavedNotes()" style="margin-top:10px;">رجوع للمحرر</button>
             </div>
-
         </div>
     </main>
 
-    <main id="view-audio" class="view-section">
+    <main id="view-studio" class="view-section">
         <div class="glass-page-card">
-            <h2 class="page-title">استوديو الترددات 🎧</h2>
-            <p class="page-desc">امزج أصواتك المفضلة للروقان.</p>
-            
-            <audio id="audio-rain" src="rain.mp3" loop></audio>
-            <audio id="audio-fire" src="fire.mp3" loop></audio>
-            <audio id="audio-cafe" src="cafe.mp3" loop></audio>
-            <audio id="audio-lofi" src="lofi.mp3" loop></audio>
-
-            <div class="audio-mixer">
-                <div class="mixer-track"><span>🌧️ مطر</span> <input type="range" id="vol-rain" class="aes-slider" min="0" max="100" value="0"></div>
-                <div class="mixer-track"><span>🔥 نار هادئة</span> <input type="range" id="vol-fire" class="aes-slider" min="0" max="100" value="0"></div>
-                <div class="mixer-track"><span>☕ مقهى</span> <input type="range" id="vol-cafe" class="aes-slider" min="0" max="100" value="0"></div>
-                <div class="mixer-track"><span>🎵 لو-فاي</span> <input type="range" id="vol-lofi" class="aes-slider" min="0" max="100" value="0"></div>
+            <h2 class="page-title">استوديو الهدوء 🎧</h2>
+            <p class="page-desc" style="margin-bottom: 25px;">اضبط الترددات التي تناسب تركيزك</p>
+            <div class="mixer-container">
+                <div class="mixer-track"><span>🌧️ مطر</span><input type="range" id="vol-rain" class="aes-slider" value="0"></div>
+                <div class="mixer-track"><span>🔥 مدفأة</span><input type="range" id="vol-fire" class="aes-slider" value="0"></div>
+                <div class="mixer-track"><span>☕ مقهى</span><input type="range" id="vol-cafe" class="aes-slider" value="0"></div>
+                <div class="mixer-track"><span>🎹 موسيقى</span><input type="range" id="vol-lofi" class="aes-slider" value="0"></div>
             </div>
         </div>
     </main>
 
-    <section id="vision-section" class="vision-container">
-    <h2 class="section-title">لوحة الإلهام 🖼️</h2>
-    
-    <div class="vision-controls">
-        <button class="action-btn" onclick="document.getElementById('vision-upload-new').click()">
-            أضف صورة ➕
-        </button>
-        <button class="action-btn download-btn" onclick="window.downloadNewVisionBoard()">
-            حفظ اللوحة 📥
-        </button>
-        <input type="file" id="vision-upload-new" accept="image/*" onchange="window.addNewImage(event)" style="display: none;">
-    </div>
-
-    <div id="new-vision-board" class="vision-grid">
+    <main id="vision-section" class="view-section">
+        <div class="glass-page-card" style="display: flex; flex-direction: column; align-items: center;">
+            <h2 class="page-title" style="margin-bottom: 5px;">لوحة الإلهام 🖼️</h2>
+            <p class="page-desc" style="margin-bottom: 20px;">اجمع صورك ومصادر إلهامك في مكان واحد</p>
+            <div class="vision-controls" style="width: 100%;">
+                <button class="action-btn" onclick="document.getElementById('vision-upload-new').click()">أضف صورة ➕</button>
+                <button class="action-btn download-btn" onclick="window.downloadNewVisionBoard()">حفظ اللوحة 📥</button>
+                <input type="file" id="vision-upload-new" accept="image/*" onchange="window.addNewImage(event)" style="display: none;">
+            </div>
+            <div id="new-vision-board" class="vision-grid" style="width: 100%; max-height: 50vh; overflow-y: auto; padding: 5px;"></div>
         </div>
-</section>
+    </main>
 
-    <footer class="legal-footer">© 2026 Method-Store صُنع بحُب 🤍</footer>
+    <div class="legal-footer">صنع بحب 🤍 | جميع الحقوق محفوظة لمتجر ميثود &copy; 2026</div>
 
     <nav class="bottom-dock">
-        <div class="dock-item active" onclick="switchView('view-world', this)" title="الهامش">🌍</div>
-        <div class="dock-item" onclick="switchView('view-editor', this)" title="كتابة حرة">✍️</div>
-        <div class="dock-item" onclick="switchView('view-audio', this)" title="استوديو">🎧</div>
-        <div class="dock-item" onclick="switchView('view-vision', this)" title="إلهام">🖼️</div>
+        <div class="dock-item active" onclick="switchView('view-main', this)">🏠</div>
+        <div class="dock-item" onclick="switchView('view-editor', this)">✍️</div>
+        <div class="dock-item" onclick="switchView('view-studio', this)">🎧</div>
+        <div class="dock-item" onclick="switchView('vision-section', this)">🖼️</div>
     </nav>
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <script src="script.js"> </script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <audio id="audio-fire" src="fire.mp3" preload="auto" loop></audio>
+    <audio id="audio-rain" src="rain.mp3" preload="auto" loop></audio>
+    <audio id="audio-cafe" src="cafe.mp3" preload="auto" loop></audio>
+    <audio id="audio-lofi" src="lofi.mp3" preload="auto" loop></audio>
+    
+    <audio id="click-sound" src="click.mp3" preload="auto"></audio>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="script.js?v=7"></script>
 </body>
 </html>
