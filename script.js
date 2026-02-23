@@ -386,3 +386,5 @@ document.onkeydown = function(e) {
     // منع Ctrl+U (عرض مصدر الصفحة)
     if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) return false;
 };
+
+document.addEventListener('contextmenu', e => e.preventDefault());
