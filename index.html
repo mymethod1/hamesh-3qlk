@@ -94,21 +94,22 @@
         </div>
     </main>
 
-    <main id="view-vision" class="view-section">
-        <div class="glass-page-card" style="max-width: 600px;">
-            <h2 class="page-title">لوحة الإلهام 🖼️</h2>
-            <p class="page-desc">أهدافك وإلهامك.. اجمع صورك هنا وحملها كلوحة واحدة.</p>
-            
-            <div style="display: flex; gap: 10px; margin-bottom: 20px;">
-                <button onclick="document.getElementById('vision-upload').click()" class="clean-btn" style="margin: 0;">+ إضافة صورة</button>
-                <button class="download-board-btn" onclick="window.downloadVisionBoard()">
-    تحميل اللوحة 📥
-</button>
-            <input type="file" id="vision-upload" accept="image/*" onchange="window.addImageToBoard(event)" style="display: none;">
-            
-            <div class="vision-board" id="vision-board" style="padding: 10px; border-radius: 20px; background: rgba(255,255,255,0.2);"></div>
+    <section id="vision-section" class="vision-container">
+    <h2 class="section-title">لوحة الإلهام 🖼️</h2>
+    
+    <div class="vision-controls">
+        <button class="action-btn" onclick="document.getElementById('vision-upload-new').click()">
+            أضف صورة ➕
+        </button>
+        <button class="action-btn download-btn" onclick="window.downloadNewVisionBoard()">
+            حفظ اللوحة 📥
+        </button>
+        <input type="file" id="vision-upload-new" accept="image/*" onchange="window.addNewImage(event)" style="display: none;">
+    </div>
+
+    <div id="new-vision-board" class="vision-grid">
         </div>
-    </main>
+</section>
 
     <footer class="legal-footer">© 2026 Method-Store صُنع بحُب 🤍</footer>
 

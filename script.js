@@ -166,42 +166,45 @@ window.renderChecklist = () => {
         </div>
     `).join('');
 };
-// ================== برمجة لوحة الإلهام 🖼️ ==================
-const visionBoard = document.getElementById('vision-board');
+// ================== برمجة لوحة الإلهام الجديدة ==================
+const newVisionBoard = document.getElementById('new-vision-board');
 
-window.loadVisionBoard = () => {
-    const images = JSON.parse(localStorage.getItem('ميثود-vision-board') || "[]");
-    if(!visionBoard) return;
+// 1. عرض الصور
+window.loadNewVisionBoard = () => {
+    // استخدمنا اسم جديد في الذاكرة عشان ما يتداخل مع القديم الخربان
+    const images = JSON.parse(localStorage.getItem('method-vision-data-v2') || "[]");
+    if (!newVisionBoard) return;
     
-    if(images.length === 0) {
-        visionBoard.innerHTML = '<p style="grid-column: span 2; color:var(--text-light); font-size:13px; margin-top:20px; text-align:center;">اللوحة فارغة.. أضف صوراً تلهمك! ✨</p>';
+    if (images.length === 0) {
+        newVisionBoard.innerHTML = '<p style="grid-column: span 2; text-align: center; color: #aaa; margin-top: 20px;">اللوحة فارغة.. ابدأ بإضافة صورك للإلهام! ✨</p>';
         return;
     }
     
-    visionBoard.innerHTML = images.map((imgSrc, index) => `
-        <div class="vision-card" style="background-image: url('${imgSrc}'); background-size: cover; background-position: center;">
-            <button class="delete-img-btn" onclick="deleteVisionImage(${index})">✕</button>
+    newVisionBoard.innerHTML = images.map((imgSrc, index) => `
+        <div class="vision-item">
+            <img src="${imgSrc}" alt="إلهام">
+            <button class="delete-btn" onclick="window.removeVisionImage(${index})">✕</button>
         </div>
     `).join('');
 };
 
-window.deleteVisionImage = (index) => {
-    if(typeof hapticLight === 'function') hapticLight();
-    
-    if (confirm("هل أنت متأكد من حذف هذه الصورة؟ 🥺")) {
-        const images = JSON.parse(localStorage.getItem('ميثود-vision-board') || "[]");
+// 2. حذف صورة
+window.removeVisionImage = (index) => {
+    if (confirm("هل أنت متأكد من حذف هذه الصورة؟")) {
+        const images = JSON.parse(localStorage.getItem('method-vision-data-v2') || "[]");
         images.splice(index, 1);
-        localStorage.setItem('ميثود-vision-board', JSON.stringify(images));
-        window.loadVisionBoard();
+        localStorage.setItem('method-vision-data-v2', JSON.stringify(images));
+        window.loadNewVisionBoard();
     }
 };
 
-window.addImageToBoard = (event) => {
+// 3. إضافة وضغط الصورة
+window.addNewImage = (event) => {
     const file = event.target.files[0];
     if (!file) return;
 
     if (!file.type.startsWith('image/')) {
-        alert('هذا الملف ليس صورة! يرجى اختيار صورة صالحة 🖼️');
+        alert('الرجاء اختيار صورة صالحة.');
         return;
     }
 
@@ -212,8 +215,8 @@ window.addImageToBoard = (event) => {
 
         img.onload = function() {
             const canvas = document.createElement('canvas');
-            const MAX_WIDTH = 800; 
-            const MAX_HEIGHT = 800; 
+            const MAX_WIDTH = 800;
+            const MAX_HEIGHT = 800;
             let width = img.width;
             let height = img.height;
 
@@ -237,37 +240,39 @@ window.addImageToBoard = (event) => {
             const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.7);
 
             try {
-                const board = JSON.parse(localStorage.getItem('ميثود-vision-board') || "[]");
+                const board = JSON.parse(localStorage.getItem('method-vision-data-v2') || "[]");
                 board.push(compressedDataUrl);
-                localStorage.setItem('ميثود-vision-board', JSON.stringify(board));
-                window.loadVisionBoard();
+                localStorage.setItem('method-vision-data-v2', JSON.stringify(board));
+                window.loadNewVisionBoard();
             } catch (error) {
-                alert('مساحة التخزين ممتلئة! يرجى حذف بعض الصور القديمة لإضافة صور جديدة 🗑️');
+                alert('مساحة التخزين ممتلئة! يرجى حذف بعض الصور القديمة.');
             }
         };
     };
     reader.readAsDataURL(file);
 };
 
-window.loadVisionBoard();
+// 4. التصوير والحفظ المباشر
+window.downloadNewVisionBoard = () => {
+    const boardArea = document.getElementById('new-vision-board'); 
+    if (!boardArea) return;
 
-// ================== دالة تصوير وحفظ لوحة الإلهام (السريعة) 📸 ==================
-window.downloadVisionBoard = () => {
-    const boardArea = document.getElementById('vision-board'); 
-    if(!boardArea) return;
-
-    // التصوير السريع المباشر
     html2canvas(boardArea, {
-        useCORS: true, 
-        backgroundColor: '#1e1e1e', // لون الخلفية (تأكد إنه يناسب تصميمك)
-        scale: 2 
+        useCORS: true,
+        backgroundColor: '#1e1e1e', // يتم تغيير هذا الكود السداسي حسب لون خلفية تطبيقك
+        scale: 2
     }).then(canvas => {
         const link = document.createElement('a');
         link.download = 'لوحة_إلهام_ميثود.png';
         link.href = canvas.toDataURL('image/png');
-        link.click(); 
+        link.click();
+    }).catch(err => {
+        alert('حدث خطأ أثناء حفظ اللوحة، يرجى المحاولة مرة أخرى.');
     });
 };
+
+// التشغيل المبدئي
+window.loadNewVisionBoard();
 // ================== برمجة استوديو الترددات 🎧 ==================
 const tracks = ['rain', 'fire', 'cafe', 'lofi'];
 tracks.forEach(track => {
