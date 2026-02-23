@@ -252,15 +252,23 @@ window.addNewImage = (event) => {
     reader.readAsDataURL(file);
 };
 
-// 4. التصوير والحفظ المباشر
+// ================== دالة تصوير وحفظ لوحة الإلهام (النسخة الذكية) 📸 ==================
 window.downloadNewVisionBoard = () => {
     const boardArea = document.getElementById('new-vision-board'); 
     if (!boardArea) return;
 
+    // تنبيه بسيط
+    console.log("جاري تجهيز الصورة بدون أزرار الحذف...");
+
     html2canvas(boardArea, {
         useCORS: true,
-        backgroundColor: '#1e1e1e', // يتم تغيير هذا الكود السداسي حسب لون خلفية تطبيقك
-        scale: 2
+        backgroundColor: '#1e1e1e', 
+        scale: 2,
+        // هذا الجزء السحري: يقوم بإخفاء أزرار الحذف فقط وقت التصوير
+        onclone: (clonedDoc) => {
+            const deleteButtons = clonedDoc.querySelectorAll('.delete-btn');
+            deleteButtons.forEach(btn => btn.style.display = 'none');
+        }
     }).then(canvas => {
         const link = document.createElement('a');
         link.download = 'لوحة_إلهام_ميثود.png';
@@ -270,7 +278,6 @@ window.downloadNewVisionBoard = () => {
         alert('حدث خطأ أثناء حفظ اللوحة، يرجى المحاولة مرة أخرى.');
     });
 };
-
 // التشغيل المبدئي
 window.loadNewVisionBoard();
 // ================== برمجة استوديو الترددات 🎧 ==================
